@@ -2,6 +2,8 @@
 
 Proof of concept showing how SVG files can execute JavaScript when rendered as images.
 
+![SVG XSS Demo](docs/ezgif-1eded1771b6df204.gif)
+
 ## What it does
 
 SVG files support embedded JavaScript. When uploaded as avatars and rendered on a page, the script executes in the context of the site. This allows an attacker to steal cookies, session tokens, and other sensitive data.
