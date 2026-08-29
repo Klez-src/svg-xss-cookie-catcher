@@ -1,0 +1,11 @@
+{
+    "name": "svg-xss-cookie-catcher",
+    "version": "1.0.0",
+    "description": "Proof of concept showing how SVG files can execute JavaScript when rendered as images",
+    "main": "index.html",
+    "scripts": {
+        "start": "npx serve ."
+    },
+    "keywords": ["security", "xss", "svg", "poc"],
+    "license": "MIT"
+}
