@@ -10,14 +10,62 @@
             max-width: 800px;
             margin: 50px auto;
             padding: 20px;
-            background: #f5f5f5;
+            background: #f0f0f0;
+            transition: background 0.3s;
         }
+        body.dark {
+            background: #1a1a1a;
+            color: #ddd;
+        }
+        body.dark .card {
+            background: #2a2a2a;
+            border: 1px solid #444;
+        }
+        body.dark .warning {
+            background: #3d2e00;
+            border-color: #664d00;
+            color: #ffd970;
+        }
+        body.dark .log-box {
+            background: #0d0d0d;
+        }
+        body.dark .cookie-display {
+            background: #1a1a1a;
+            border-color: #444;
+        }
+        body.dark input,
+        body.dark textarea {
+            background: #1a1a1a;
+            color: #ddd;
+            border-color: #444;
+        }
+        body.dark .file-label {
+            background: #1a7a2a;
+        }
+        body.dark .file-label:hover {
+            background: #146a22;
+        }
+        body.dark .btn-danger {
+            background: #8a1a2a;
+        }
+        body.dark .btn-danger:hover {
+            background: #6a1420;
+        }
+        body.dark .dark-toggle {
+            background: #2a2a2a;
+            color: #ddd;
+            border-color: #444;
+        }
+        body.dark .dark-toggle:hover {
+            background: #3a3a3a;
+        }
+
         .card {
             background: white;
             padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid #ddd;
             margin-bottom: 20px;
+            transition: background 0.3s, border-color 0.3s;
         }
         .avatar {
             width: 150px;
@@ -26,18 +74,10 @@
             border: 3px solid #ddd;
             object-fit: cover;
         }
-        .upload-box {
-            border: 2px dashed #ccc;
-            padding: 30px;
-            text-align: center;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
         .log-box {
             background: #1e1e1e;
             color: #00ff00;
             padding: 15px;
-            border-radius: 4px;
             font-family: monospace;
             font-size: 13px;
             height: 150px;
@@ -55,34 +95,34 @@
         }
         .btn {
             padding: 10px 20px;
-            background: #007bff;
+            background: #0066cc;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
         .btn:hover {
-            background: #0056b3;
+            background: #0055aa;
         }
         .btn-danger {
-            background: #dc3545;
+            background: #cc2233;
         }
         .btn-danger:hover {
-            background: #a71d2a;
+            background: #aa1a28;
         }
         input[type="file"] {
             display: none;
         }
         .file-label {
             padding: 10px 20px;
-            background: #28a745;
+            background: #228833;
             color: white;
             border-radius: 4px;
             cursor: pointer;
             display: inline-block;
         }
         .file-label:hover {
-            background: #1e7e34;
+            background: #1a772a;
         }
         .preview-section {
             display: none;
@@ -94,7 +134,6 @@
         .cookie-display {
             background: #f8f9fa;
             padding: 10px;
-            border-radius: 4px;
             font-family: monospace;
             word-break: break-all;
             margin-top: 10px;
@@ -105,7 +144,6 @@
             background: #fff3cd;
             border: 1px solid #ffc107;
             padding: 15px;
-            border-radius: 4px;
             margin: 20px 0;
             color: #856404;
         }
@@ -115,20 +153,32 @@
             align-items: center;
             flex-wrap: wrap;
         }
-        .badge {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 12px;
-            background: #ffc107;
-            color: #000;
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .dark-toggle {
+            padding: 6px 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #f0f0f0;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+        }
+        .dark-toggle:hover {
+            background: #e0e0e0;
         }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <h1>Profile Settings</h1>
+        <div class="header-row">
+            <h1>Profile Settings</h1>
+            <button class="dark-toggle" onclick="toggleDark()">Dark</button>
+        </div>
         <p style="color: #666;">Upload your avatar and update your profile</p>
 
         <div class="warning">
@@ -150,7 +200,7 @@
         <div class="preview-section" id="previewSection">
             <hr />
             <h3>Rendered Avatar</h3>
-            <div id="renderedAvatar" style="border: 1px solid #ddd; padding: 10px; border-radius: 4px; min-height: 100px;"></div>
+            <div id="renderedAvatar" style="border: 1px solid #ddd; padding: 10px; min-height: 100px;"></div>
         </div>
     </div>
 
@@ -168,6 +218,17 @@
 
         var logDisplay = document.getElementById('logDisplay');
         var stolenCookies = [];
+
+        function toggleDark() {
+            var body = document.body;
+            body.classList.toggle('dark');
+            var btn = document.querySelector('.dark-toggle');
+            if (body.classList.contains('dark')) {
+                btn.textContent = 'Light';
+            } else {
+                btn.textContent = 'Dark';
+            }
+        }
 
         function logMessage(message, type) {
             var entry = document.createElement('div');
